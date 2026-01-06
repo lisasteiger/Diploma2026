@@ -3,11 +3,6 @@ body {
   background: #ffffff;
 }
 
-.container {
-  max-width: 100%;
-  background: rgb(255, 255, 255);
-}
-
 textarea {
   width: 100%;
   height: 100px;
@@ -20,7 +15,7 @@ textarea {
 
 button {
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 10rem;
   cursor: pointer;
 }
 
