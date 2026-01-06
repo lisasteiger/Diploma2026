@@ -6,10 +6,10 @@ body {
 
 .container {
   max-width: 100%;
-  background: rgb(89, 16, 16);
+  background: rgb(176, 53, 53);
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(92, 5, 5, 0.1);
 }
 
 textarea {
