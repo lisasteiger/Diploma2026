@@ -1,15 +1,11 @@
 body {
   font-family: Arial, sans-serif;
-  padding: 2rem;
-  background: #544040;
+  background: #ffffff;
 }
 
 .container {
   max-width: 100%;
-  background: rgb(89, 16, 16);
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(92, 5, 5, 0.1);
+  background: rgb(255, 255, 255);
 }
 
 textarea {
@@ -18,6 +14,8 @@ textarea {
   padding: 0.5rem;
   font-size: 1rem;
   margin-bottom: 1rem;
+  background-color: aqua;
+  border: none;
 }
 
 button {
