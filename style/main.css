@@ -9,6 +9,38 @@ body {
   position: relative;
   overflow: hidden;
 }
+.panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.panel.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Text Panels */
+.panel p {
+  font-size: 3rem;
+  text-align: center;
+}
+
+/* Formular Panel */
+.form-panel {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-panel textarea {
+  width: 80%;
+  height: 150px;
+}
 
 .text {
   position: absolute;

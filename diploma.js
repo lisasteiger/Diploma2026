@@ -1,28 +1,18 @@
-const texts = document.querySelectorAll(".text");
+const panels = document.querySelectorAll(".panel");
 let index = 0;
 let isScrolling = false;
 
-window.addEventListener("wheel", (e) => {
+function changePanel(newIndex) {
   if (isScrolling) return;
-
-  if (e.deltaY > 0 && index < texts.length - 1) {
-    changeText(index + 1);
-  } else if (e.deltaY < 0 && index > 0) {
-    changeText(index - 1);
-  }
-});
-
-function changeText(newIndex) {
   isScrolling = true;
 
-  texts[index].classList.remove("active");
-  texts[newIndex].classList.add("active");
-
+  panels[index].classList.remove("active");
+  panels[newIndex].classList.add("active");
   index = newIndex;
 
   setTimeout(() => {
     isScrolling = false;
-  }, 700); // etwas länger als CSS transition
+  }, 700);
 }
 
 window.addEventListener(
