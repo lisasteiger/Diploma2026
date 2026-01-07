@@ -1,34 +1,46 @@
 const panels = document.querySelectorAll(".panel");
-let index = 0;
-let isScrolling = false;
+const story = document.getElementById("story");
 
+let index = 0;
+let isAnimating = false;
+
+/* ---------- Panel Wechsel ---------- */
 function changePanel(newIndex) {
-  if (isScrolling) return;
-  isScrolling = true;
+  if (isAnimating || newIndex === index) return;
+  if (newIndex < 0 || newIndex >= panels.length) return;
+
+  isAnimating = true;
 
   panels[index].classList.remove("active");
   panels[newIndex].classList.add("active");
   index = newIndex;
 
+  updateScrollLock();
+
   setTimeout(() => {
-    isScrolling = false;
+    isAnimating = false;
   }, 700);
 }
 
+/* ---------- Desktop Scroll ---------- */
 window.addEventListener(
   "wheel",
   (e) => {
-    if (index === texts.length - 1 && e.deltaY > 0) return;
-    if (index === 0 && e.deltaY < 0) return;
+    if (panels[index].classList.contains("form-panel")) return;
 
-    e.preventDefault();
+    if (e.deltaY > 0) {
+      changePanel(index + 1);
+    } else if (e.deltaY < 0) {
+      changePanel(index - 1);
+    }
   },
-  { passive: false }
+  { passive: true }
 );
 
+/* ---------- Mobile Touch ---------- */
 let startY = 0;
 let endY = 0;
-const swipeThreshold = 50; // Mindestdistanz
+const swipeThreshold = 50;
 
 window.addEventListener("touchstart", (e) => {
   startY = e.touches[0].clientY;
@@ -42,25 +54,34 @@ window.addEventListener("touchend", (e) => {
 function handleSwipe() {
   const deltaY = startY - endY;
 
-  // Swipe nach oben
-  if (deltaY > swipeThreshold && index < texts.length - 1) {
-    changeText(index + 1);
-  }
+  if (panels[index].classList.contains("form-panel")) return;
 
-  // Swipe nach unten
-  if (deltaY < -swipeThreshold && index > 0) {
-    changeText(index - 1);
+  if (deltaY > swipeThreshold) {
+    changePanel(index + 1);
+  } else if (deltaY < -swipeThreshold) {
+    changePanel(index - 1);
   }
 }
 
-const story = document.getElementById("story");
-
+/* ---------- Scroll Sperre ---------- */
 story.addEventListener(
   "touchmove",
   (e) => {
-    if (index < texts.length - 1) {
+    if (!panels[index].classList.contains("form-panel")) {
       e.preventDefault();
     }
   },
   { passive: false }
 );
+
+/* ---------- Scroll Lock Body ---------- */
+function updateScrollLock() {
+  if (panels[index].classList.contains("form-panel")) {
+    document.body.style.overflow = "auto";
+  } else {
+    document.body.style.overflow = "hidden";
+  }
+}
+
+/* Initial */
+updateScrollLock();
