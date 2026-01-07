@@ -36,3 +36,39 @@ textarea {
   height: 150px;
   font-size: 1rem;
 }
+
+@media (max-width: 768px) {
+  .text {
+    font-size: 1.8rem;
+    padding: 1rem;
+    text-align: center;
+    width: 90%;
+  }
+
+  #contact {
+    padding: 2rem 1rem;
+  }
+
+  textarea {
+    font-size: 1rem;
+  }
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.5;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, 10px);
+  }
+}
