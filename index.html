@@ -2,22 +2,28 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Text speichern mit Supabase</title>
+    <title>Scroll Fade Center</title>
     <link rel="stylesheet" href="style/main.css" />
   </head>
   <body>
-    <div>
-      <p>Hei Mom, Hei Dad</p>
-      <p>Danke nimmst du dir Zeit</p>
-    </div>
-    <div class="container">
-      <h1>Text speichern</h1>
+    <section id="story">
+      <div class="text active">Text 1</div>
+      <div class="text">Text 2</div>
+      <div class="text">Text 3</div>
+      <div class="text">Text 2</div>
+      <div class="text">Text 3</div>
+      <div class="text">Text 2</div>
+      <div class="text">Text 3</div>
+      <div class="text">Text 2</div>
+      <div class="text">Text 3</div>
+    </section>
 
-      <textarea id="textInput" placeholder="hier text einfügen"></textarea>
-      <button id="saveBtn">senden</button>
-    </div>
+    <section id="contact">
+      <h2>Nachricht</h2>
+      <textarea placeholder="Schreibe hier..."></textarea>
+      <button>Absenden</button>
+    </section>
 
-    <script type="module" src="diploma.js"></script>
+    <script src="diploma.js"></script>
   </body>
 </html>

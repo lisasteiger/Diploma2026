@@ -1,55 +1,37 @@
-// ---- Supabase Setup ----
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+const texts = document.querySelectorAll(".text");
+let index = 0;
+let isScrolling = false;
 
-// Hier deine Supabase URL und ANON KEY einfügen
-const supabaseUrl = "https://knfbjpieihociajmylls.supabase.co";
-const supabaseKey = "sb_publishable_ZMUVxenWZ3BGn0GCuARVBg_6gtSTkLw";
-const supabase = createClient(supabaseUrl, supabaseKey);
+window.addEventListener("wheel", (e) => {
+  if (isScrolling) return;
 
-// ---- Elemente ----
-const textInput = document.getElementById("textInput");
-const saveBtn = document.getElementById("saveBtn");
-const textList = document.getElementById("textList");
-
-// ---- Texte laden ----
-async function loadTexts() {
-  const { data, error } = await supabase
-    .from("texts")
-    .select("*")
-    .order("id", { ascending: true });
-
-  if (error) {
-    console.error(error);
-    return;
+  if (e.deltaY > 0 && index < texts.length - 1) {
+    changeText(index + 1);
+  } else if (e.deltaY < 0 && index > 0) {
+    changeText(index - 1);
   }
+});
 
-  textList.innerHTML = "";
-  data.forEach((item) => {
-    const li = document.createElement("li");
-    li.textContent = item.content;
-    textList.appendChild(li);
-  });
+function changeText(newIndex) {
+  isScrolling = true;
+
+  texts[index].classList.remove("active");
+  texts[newIndex].classList.add("active");
+
+  index = newIndex;
+
+  setTimeout(() => {
+    isScrolling = false;
+  }, 700); // etwas länger als CSS transition
 }
 
-// ---- Text speichern ----
-async function saveText() {
-  const content = textInput.value.trim();
-  if (!content) return alert("Bitte Text eingeben!");
+window.addEventListener(
+  "wheel",
+  (e) => {
+    if (index === texts.length - 1 && e.deltaY > 0) return;
+    if (index === 0 && e.deltaY < 0) return;
 
-  const { data, error } = await supabase.from("texts").insert([{ content }]);
-
-  if (error) {
-    console.error(error);
-    alert("Fehler beim Speichern!");
-    return;
-  }
-
-  textInput.value = "";
-  loadTexts();
-}
-
-// ---- Event ----
-saveBtn.addEventListener("click", saveText);
-
-// ---- Initial load ----
-loadTexts();
+    e.preventDefault();
+  },
+  { passive: false }
+);

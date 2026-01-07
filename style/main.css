@@ -1,38 +1,38 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #ffffff;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+/* Story-Bereich */
+#story {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-size: 3rem;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
 
-p {
-  font-weight: 800;
-  font-size: 2em;
+.text.active {
+  opacity: 1;
+}
+
+/* Kontaktbereich */
+#contact {
+  min-height: 100vh;
+  padding: 4rem;
+  background: #f5f5f5;
 }
 
 textarea {
   width: 100%;
-  height: 100px;
-  padding: 0.5rem;
+  height: 150px;
   font-size: 1rem;
-  margin-bottom: 1rem;
-  background-color: rgb(237, 237, 237);
-  border: none;
-}
-
-button {
-  position: cen;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  border-radius: 1em;
-}
-
-ul {
-  list-style-type: disc;
-  padding-left: 20px;
 }
