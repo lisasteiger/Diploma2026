@@ -24,6 +24,7 @@ body {
   font-size: 0.9rem;
   opacity: 0.8;
   animation: bouncePulse 2.4s ease-in-out infinite;
+  text-align: center;
 }
 
 /* Story Wrapper */
@@ -83,6 +84,7 @@ body {
   font-size: 1.1rem;
   line-height: 1.5;
   overscroll-behavior: contain;
+  text-align: center;
 }
 
 .form-panel textarea:active {
@@ -94,6 +96,10 @@ body {
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
   cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: rgb(242, 242, 242);
+  border-radius: 20px;
 }
 
 /* Mobile Anpassungen */
