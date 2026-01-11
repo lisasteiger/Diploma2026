@@ -1,12 +1,13 @@
 const panels = document.querySelectorAll(".panel");
-const story = document.getElementById("story");
-
 let index = 0;
 let isAnimating = false;
 
-/* ---------- Panel Wechsel ---------- */
+// Initial
+panels[0].classList.add("active");
+document.body.style.overflow = "hidden";
+
 function changePanel(newIndex) {
-  if (isAnimating || newIndex === index) return;
+  if (isAnimating) return;
   if (newIndex < 0 || newIndex >= panels.length) return;
 
   isAnimating = true;
@@ -15,73 +16,41 @@ function changePanel(newIndex) {
   panels[newIndex].classList.add("active");
   index = newIndex;
 
-  updateScrollLock();
-
   setTimeout(() => {
     isAnimating = false;
-  }, 700);
+  }, 2000);
 }
 
-/* ---------- Desktop Scroll ---------- */
+// Desktop Scroll
 window.addEventListener(
   "wheel",
   (e) => {
-    if (panels[index].classList.contains("form-panel")) return;
-
+    e.preventDefault();
     if (e.deltaY > 0) {
       changePanel(index + 1);
-    } else if (e.deltaY < 0) {
+    } else {
       changePanel(index - 1);
     }
   },
-  { passive: true }
+  { passive: false }
 );
 
-/* ---------- Mobile Touch ---------- */
+// Mobile Swipe
 let startY = 0;
-let endY = 0;
-const swipeThreshold = 50;
 
 window.addEventListener("touchstart", (e) => {
   startY = e.touches[0].clientY;
 });
 
 window.addEventListener("touchend", (e) => {
-  endY = e.changedTouches[0].clientY;
-  handleSwipe();
-});
+  const endY = e.changedTouches[0].clientY;
+  const delta = startY - endY;
 
-function handleSwipe() {
-  const deltaY = startY - endY;
-
-  if (panels[index].classList.contains("form-panel")) return;
-
-  if (deltaY > swipeThreshold) {
-    changePanel(index + 1);
-  } else if (deltaY < -swipeThreshold) {
-    changePanel(index - 1);
-  }
-}
-
-/* ---------- Scroll Sperre ---------- */
-story.addEventListener(
-  "touchmove",
-  (e) => {
-    if (!panels[index].classList.contains("form-panel")) {
-      e.preventDefault();
+  if (Math.abs(delta) > 50) {
+    if (delta > 0) {
+      changePanel(index + 1);
+    } else {
+      changePanel(index - 1);
     }
-  },
-  { passive: false }
-);
-
-/* ---------- Scroll Lock Body ---------- */
-function updateScrollLock() {
-  if (panels[index].classList.contains("form-panel")) {
-    document.body.style.overflow = "auto";
-  } else {
-    document.body.style.overflow = "hidden";
   }
-}
-
-/* Initial */
-updateScrollLock();
+});

@@ -10,6 +10,24 @@ body {
   overflow: hidden;
 }
 
+.infos {
+  font-size: 1.2rem;
+  text-align: center;
+  color: rgb(151, 151, 151);
+  bottom: 3em;
+  position: fixed;
+
+  left: 50%;
+
+  z-index: 20;
+}
+
+.infos p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  animation: bouncePulse 2.4s ease-in-out infinite;
+}
+
 /* Story Wrapper */
 #story {
   position: relative;
@@ -27,7 +45,7 @@ body {
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.9s ease;
+  transition: opacity 0.5s ease;
 }
 
 .panel.active {
@@ -35,17 +53,16 @@ body {
   pointer-events: auto;
 }
 
+.form-panel {
+  flex-direction: column;
+  gap: 1rem;
+}
+
 /* Text Panels */
 .panel p {
   font-size: 3rem;
   text-align: center;
   max-width: 80%;
-}
-
-/* Formular Panel */
-.form-panel {
-  flex-direction: column;
-  gap: 1rem;
 }
 
 .form-panel h2 {
@@ -74,5 +91,17 @@ body {
 
   .form-panel textarea {
     width: 90%;
+  }
+}
+
+@keyframes bouncePulse {
+  0% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.12);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
   }
 }
