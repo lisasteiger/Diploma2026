@@ -14,7 +14,7 @@ body {
   font-size: 1.2rem;
   text-align: center;
   color: rgb(151, 151, 151);
-  bottom: 3em;
+  bottom: 30%;
   position: fixed;
 
   left: 50%;
@@ -95,12 +95,29 @@ body {
 }
 
 @keyframes bouncePulse {
-  0% {
+  /* Ruhe */
+  0%,
+  20% {
     transform: translateX(-50%) scale(1);
   }
-  50% {
-    transform: translateX(-50%) scale(1.12);
+
+  /* Zusammendrücken */
+  35% {
+    transform: translateX(-50%) scale(0.7);
   }
+
+  /* Bounce */
+  50% {
+    transform: translateX(-50%) scale(2);
+  }
+
+  /* Zurückfedern */
+  65% {
+    transform: translateX(-50%) scale(0.9);
+  }
+
+  /* Wieder Ruhe */
+  80%,
   100% {
     transform: translateX(-50%) scale(1);
   }
