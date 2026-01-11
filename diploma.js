@@ -18,7 +18,7 @@ function changePanel(newIndex) {
 
   setTimeout(() => {
     isAnimating = false;
-  }, 2000);
+  }, 1200);
 }
 
 // Desktop Scroll
