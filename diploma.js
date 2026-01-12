@@ -1,68 +1,14 @@
-// ---- Supabase Setup ----
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
-
-// Hier deine Supabase URL und ANON KEY einfügen
-const supabaseUrl = "https://knfbjpieihociajmylls.supabase.co";
-const supabaseKey = "sb_publishable_ZMUVxenWZ3BGn0GCuARVBg_6gtSTkLw";
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-// ---- Elemente ----
-const textInput = document.getElementById("textInput");
-const saveBtn = document.getElementById("saveBtn");
-const textList = document.getElementById("textList");
-
-// ---- Texte laden ----
-async function loadTexts() {
-  const { data, error } = await supabase
-    .from("texts")
-    .select("*")
-    .order("id", { ascending: true });
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  textList.innerHTML = "";
-  data.forEach((item) => {
-    const li = document.createElement("li");
-    li.textContent = item.content;
-    textList.appendChild(li);
-  });
-}
-
-// ---- Text speichern ----
-async function saveText() {
-  const content = textInput.value.trim();
-  if (!content) return alert("Bitte Text eingeben!");
-
-  const { data, error } = await supabase.from("texts").insert([{ content }]);
-
-  if (error) {
-    console.error(error);
-    alert("Fehler beim Speichern!");
-    return;
-  }
-
-  textInput.value = "";
-  loadTexts();
-}
-
-// ---- Event ----
-saveBtn.addEventListener("click", saveText);
-
-// ---- Initial load ----
-loadTexts();
-
 const panels = document.querySelectorAll(".panel");
 let index = 0;
 let isAnimating = false;
 
-// Panels initial setzen
+// Initial
 panels[0].classList.add("active");
-
-// Body-Overflow initial nur blocken, solange Panels aktiv sind
 document.body.style.overflowY = "hidden";
+
+function isLastPanel() {
+  return index === panels.length - 1;
+}
 
 function changePanel(newIndex) {
   if (isAnimating) return;
@@ -74,8 +20,8 @@ function changePanel(newIndex) {
   panels[newIndex].classList.add("active");
   index = newIndex;
 
-  // Body-Scroll nur freigeben, wenn wir am letzten Panel angekommen sind
-  if (index === panels.length - 1) {
+  // Scroll freigeben oder blockieren
+  if (isLastPanel()) {
     document.body.style.overflowY = "auto";
   } else {
     document.body.style.overflowY = "hidden";
@@ -83,21 +29,24 @@ function changePanel(newIndex) {
 
   setTimeout(() => {
     isAnimating = false;
-  }, 1200);
+  }, 800);
 }
 
 // Desktop Scroll
 window.addEventListener(
   "wheel",
   (e) => {
-    // Wenn im Textarea, NICHT Panel wechseln
+    // Wenn wir im letzten Panel sind → normaler Scroll
+    if (isLastPanel()) return;
+
+    // Textarea darf normal scrollen
     if (e.target.closest("textarea")) return;
 
-    if (isAnimating) return;
+    e.preventDefault();
 
     if (e.deltaY > 0) {
       changePanel(index + 1);
-    } else if (e.deltaY < 0) {
+    } else {
       changePanel(index - 1);
     }
   },
@@ -112,6 +61,8 @@ window.addEventListener("touchstart", (e) => {
 });
 
 window.addEventListener("touchend", (e) => {
+  if (isLastPanel()) return;
+
   const endY = e.changedTouches[0].clientY;
   const delta = startY - endY;
 
@@ -124,13 +75,13 @@ window.addEventListener("touchend", (e) => {
   }
 });
 
-// Textarea dynamische Höhe
+// Dynamische Textarea-Höhe
 const textarea = document.getElementById("autoTextarea");
 
 textarea.addEventListener("input", () => {
   textarea.style.height = "auto";
 
-  const maxHeight = window.innerHeight * 0.4; // max Höhe 40% des Viewports
+  const maxHeight = window.innerHeight * 0.4;
 
   if (textarea.scrollHeight > maxHeight) {
     textarea.style.height = maxHeight + "px";
