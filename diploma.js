@@ -1,29 +1,12 @@
-/********************************
- * SUPABASE SETUP
- ********************************/
-const supabaseUrl = "https://knfbjpieihociajmylls.supabase.co";
-const supabaseKey = "sb_publishable_ZMUVxenWZ3BGn0GCuARVBg_6gtSTkLw";
-
-const { createClient } = window.supabase;
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-const saveBtn = document.getElementById("saveBtn");
-const textList = document.getElementById("textList");
-const textarea = document.getElementById("autoTextarea");
-
-/********************************
- * PANEL SETUP
- ********************************/
 const panels = document.querySelectorAll(".panel");
 let index = 0;
 let isAnimating = false;
 
-document.body.style.overflowY = "hidden";
+// Panels initial setzen
 panels[0].classList.add("active");
 
-function isLastPanel() {
-  return index === panels.length - 1;
-}
+// Body-Overflow initial nur blocken, solange Panels aktiv sind
+document.body.style.overflowY = "hidden";
 
 function changePanel(newIndex) {
   if (isAnimating) return;
@@ -35,64 +18,69 @@ function changePanel(newIndex) {
   panels[newIndex].classList.add("active");
   index = newIndex;
 
-  document.body.style.overflowY = isLastPanel() ? "auto" : "hidden";
+  // Body-Scroll nur freigeben, wenn wir am letzten Panel angekommen sind
+  if (index === panels.length - 1) {
+    document.body.style.overflowY = "auto";
+  } else {
+    document.body.style.overflowY = "hidden";
+  }
 
-  setTimeout(() => (isAnimating = false), 600);
+  setTimeout(() => {
+    isAnimating = false;
+  }, 1200);
 }
 
-// Wheel
+// Desktop Scroll
 window.addEventListener(
   "wheel",
   (e) => {
-    if (isLastPanel()) return;
+    // Wenn im Textarea, NICHT Panel wechseln
     if (e.target.closest("textarea")) return;
 
-    e.preventDefault();
+    if (isAnimating) return;
 
-    e.deltaY > 0 ? changePanel(index + 1) : changePanel(index - 1);
+    if (e.deltaY > 0) {
+      changePanel(index + 1);
+    } else if (e.deltaY < 0) {
+      changePanel(index - 1);
+    }
   },
   { passive: false }
 );
 
-// Touch
+// Mobile Swipe
 let startY = 0;
+
 window.addEventListener("touchstart", (e) => {
   startY = e.touches[0].clientY;
 });
 
 window.addEventListener("touchend", (e) => {
-  if (isLastPanel()) return;
+  const endY = e.changedTouches[0].clientY;
+  const delta = startY - endY;
 
-  const delta = startY - e.changedTouches[0].clientY;
   if (Math.abs(delta) > 50) {
-    delta > 0 ? changePanel(index + 1) : changePanel(index - 1);
+    if (delta > 0) {
+      changePanel(index + 1);
+    } else {
+      changePanel(index - 1);
+    }
   }
 });
 
-/********************************
- * SUPABASE
- ********************************/
-async function loadTexts() {
-  const { data } = await supabase
-    .from("texts")
-    .select("*")
-    .order("id", { ascending: true });
+// Textarea dynamische Höhe
+const textarea = document.getElementById("autoTextarea");
 
-  textList.innerHTML = "";
-  data?.forEach((item) => {
-    const li = document.createElement("li");
-    li.textContent = item.content;
-    textList.appendChild(li);
-  });
-}
+textarea.addEventListener("input", () => {
+  textarea.style.height = "auto";
 
-saveBtn.addEventListener("click", async () => {
-  const content = textarea.value.trim();
-  if (!content) return;
+  const maxHeight = window.innerHeight * 0.4; // max Höhe 40% des Viewports
 
-  await supabase.from("texts").insert([{ content }]);
-  textarea.value = "";
-  loadTexts();
+  if (textarea.scrollHeight > maxHeight) {
+    textarea.style.height = maxHeight + "px";
+    textarea.style.overflowY = "auto";
+  } else {
+    textarea.style.height = textarea.scrollHeight + "px";
+    textarea.style.overflowY = "hidden";
+  }
 });
-
-loadTexts();
