@@ -1,3 +1,22 @@
+import { createClient } from "@supabase/supabase-js";
+const supabaseUrl = "https://knfbjpieihociajmylls.supabase.co";
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// text speichern
+async function saveText() {
+  const content = document.getElementById("text").value;
+
+  const { data, error } = await supabase.from("texts").insert([{ content }]);
+
+  if (error) {
+    console.error(error);
+    alert("Fehler beim Speichern");
+  } else {
+    alert("Gespeichert!");
+  }
+}
+
 const panels = document.querySelectorAll(".panel");
 let index = 0;
 let isAnimating = false;
