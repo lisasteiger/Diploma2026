@@ -2,13 +2,11 @@ const panels = document.querySelectorAll(".panel");
 let index = 0;
 let isAnimating = false;
 
-// Initial
+// Panels initial setzen
 panels[0].classList.add("active");
-document.body.style.overflowY = "hidden";
 
-function isLastPanel() {
-  return index === panels.length - 1;
-}
+// Body-Overflow initial nur blocken, solange Panels aktiv sind
+document.body.style.overflowY = "hidden";
 
 function changePanel(newIndex) {
   if (isAnimating) return;
@@ -20,8 +18,8 @@ function changePanel(newIndex) {
   panels[newIndex].classList.add("active");
   index = newIndex;
 
-  // Scroll freigeben oder blockieren
-  if (isLastPanel()) {
+  // Body-Scroll nur freigeben, wenn wir am letzten Panel angekommen sind
+  if (index === panels.length - 1) {
     document.body.style.overflowY = "auto";
   } else {
     document.body.style.overflowY = "hidden";
@@ -29,24 +27,21 @@ function changePanel(newIndex) {
 
   setTimeout(() => {
     isAnimating = false;
-  }, 800);
+  }, 1200);
 }
 
 // Desktop Scroll
 window.addEventListener(
   "wheel",
   (e) => {
-    // Wenn wir im letzten Panel sind → normaler Scroll
-    if (isLastPanel()) return;
-
-    // Textarea darf normal scrollen
+    // Wenn im Textarea, NICHT Panel wechseln
     if (e.target.closest("textarea")) return;
 
-    e.preventDefault();
+    if (isAnimating) return;
 
     if (e.deltaY > 0) {
       changePanel(index + 1);
-    } else {
+    } else if (e.deltaY < 0) {
       changePanel(index - 1);
     }
   },
@@ -61,8 +56,6 @@ window.addEventListener("touchstart", (e) => {
 });
 
 window.addEventListener("touchend", (e) => {
-  if (isLastPanel()) return;
-
   const endY = e.changedTouches[0].clientY;
   const delta = startY - endY;
 
@@ -75,13 +68,13 @@ window.addEventListener("touchend", (e) => {
   }
 });
 
-// Dynamische Textarea-Höhe
+// Textarea dynamische Höhe
 const textarea = document.getElementById("autoTextarea");
 
 textarea.addEventListener("input", () => {
   textarea.style.height = "auto";
 
-  const maxHeight = window.innerHeight * 0.4;
+  const maxHeight = window.innerHeight * 0.4; // max Höhe 40% des Viewports
 
   if (textarea.scrollHeight > maxHeight) {
     textarea.style.height = maxHeight + "px";
