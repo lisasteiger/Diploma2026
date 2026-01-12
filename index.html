@@ -3,23 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Text speichern mit Supabase</title>
+    <title>Scroll Story Panels</title>
     <link rel="stylesheet" href="style/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div class="container">
-      <h1>Text speichern</h1>
+    <section id="story">
+      <div class="panel active">
+        <p>Hi</p>
+      </div>
 
-      <textarea
-        id="textInput"
-        placeholder="Hier deinen Text eingeben..."
-      ></textarea>
-      <button id="saveBtn">Speichern</button>
+      <div class="panel">
+        <p>Danke nimmst du dir Zeit</p>
+      </div>
 
-      <h2>Gespeicherte Texte:</h2>
+      <div class="panel">
+        <p>Ein paar Gedanken…</p>
+      </div>
+
+      <div class="panel">
+        <p>Deine Nachricht</p>
+        <textarea id="autoTextarea" placeholder="Schreib etwas…"></textarea>
+        <button id="saveBtn">Absenden</button>
+      </div>
+
+      <div class="panel">
+        <p>Danke fürs Teilen ❤️</p>
+      </div>
+    </section>
+
+    <!-- Ab hier normaler Scroll -->
+    <div class="after-content">
+      <h2>Gespeicherte Nachrichten</h2>
       <ul id="textList"></ul>
     </div>
 
-    <script type="module" src="main.js"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
   </body>
 </html>
