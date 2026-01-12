@@ -7,7 +7,7 @@
 
 body {
   font-family: stix-two-text;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .diverses {
