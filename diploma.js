@@ -1,3 +1,8 @@
+import { createClient } from "@supabase/supabase-js";
+const supabaseUrl = "https://knfbjpieihociajmylls.supabase.co";
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 const panels = document.querySelectorAll(".panel");
 let index = 0;
 let isAnimating = false;
