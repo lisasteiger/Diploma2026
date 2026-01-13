@@ -1,55 +1,29 @@
-// ---- Supabase Setup ----
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+// 🔑 HIER DEINE DATEN EINSETZEN
 
-// Hier deine Supabase URL und ANON KEY einfügen
+import { createClient } from "@supabase/supabase-js";
 const supabaseUrl = "https://knfbjpieihociajmylls.supabase.co";
-const supabaseKey = "sb_publishable_ZMUVxenWZ3BGn0GCuARVBg_6gtSTkLw";
+const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// ---- Elemente ----
-const textInput = document.getElementById("textInput");
-const saveBtn = document.getElementById("saveBtn");
-const textList = document.getElementById("textList");
+const button = document.getElementById("submitBtn");
+const textarea = document.getElementById("textInput");
+const status = document.getElementById("status");
 
-// ---- Texte laden ----
-async function loadTexts() {
-  const { data, error } = await supabase
-    .from("texts")
-    .select("*")
-    .order("id", { ascending: true });
+button.addEventListener("click", async () => {
+  const text = textarea.value.trim();
 
-  if (error) {
-    console.error(error);
+  if (!text) {
+    status.textContent = "Bitte Text eingeben.";
     return;
   }
 
-  textList.innerHTML = "";
-  data.forEach((item) => {
-    const li = document.createElement("li");
-    li.textContent = item.content;
-    textList.appendChild(li);
-  });
-}
-
-// ---- Text speichern ----
-async function saveText() {
-  const content = textInput.value.trim();
-  if (!content) return alert("Bitte Text eingeben!");
-
-  const { data, error } = await supabase.from("texts").insert([{ content }]);
+  const { error } = await supabase.from("texts").insert([{ content: text }]);
 
   if (error) {
+    status.textContent = "Fehler beim Speichern.";
     console.error(error);
-    alert("Fehler beim Speichern!");
-    return;
+  } else {
+    status.textContent = "Text gespeichert ✔";
+    textarea.value = "";
   }
-
-  textInput.value = "";
-  loadTexts();
-}
-
-// ---- Event ----
-saveBtn.addEventListener("click", saveText);
-
-// ---- Initial load ----
-loadTexts();
+});
