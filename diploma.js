@@ -23,7 +23,7 @@ button.addEventListener("click", async () => {
     console.error(error);
     status.textContent = error.message;
   } else {
-    status.textContent = "Text gespeichert ✔";
+    status.textContent = "danke";
     textarea.value = "";
   }
 });
