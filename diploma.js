@@ -1,3 +1,12 @@
+// SUPABASE
+
+import { createClient } from "@supabase/supabase-js";
+const supabaseUrl = "https://knfbjpieihociajmylls.supabase.co";
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+//
+
 const input = document.getElementById("textInput");
 const output = document.getElementById("savedText");
 
