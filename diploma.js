@@ -1,7 +1,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
 const supabaseUrl = "https://knfbjpieihociajmylls.supabase.co";
-const supabaseKey = "sb_publishable_ZMUVxenWZ3BGn0GCuARVBg_6gtSTkLw"; // ← hier direkt einsetzen
+const supabaseKey = "sb_publishable_ZMUVxenWZ3BGn0GCuARVBg_6gtSTkLw";
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -21,7 +21,7 @@ button.addEventListener("click", async () => {
 
   if (error) {
     console.error(error);
-    status.textContent = "Fehler beim Speichern ❌";
+    status.textContent = error.message;
   } else {
     status.textContent = "Text gespeichert ✔";
     textarea.value = "";
