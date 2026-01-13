@@ -1,11 +1,11 @@
-// 🔑 HIER DEINE DATEN EINSETZEN
+import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
-import { createClient } from "@supabase/supabase-js";
 const supabaseUrl = "https://knfbjpieihociajmylls.supabase.co";
-const supabaseKey = process.env.SUPABASE_KEY;
+const supabaseKey = "sb_publishable_ZMUVxenWZ3BGn0GCuARVBg_6gtSTkLw"; // ← hier direkt einsetzen
+
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const button = document.getElementById("submitBtn");
+const button = document.getElementById("saveBtn");
 const textarea = document.getElementById("textInput");
 const status = document.getElementById("status");
 
@@ -20,8 +20,8 @@ button.addEventListener("click", async () => {
   const { error } = await supabase.from("texts").insert([{ content: text }]);
 
   if (error) {
-    status.textContent = "Fehler beim Speichern.";
     console.error(error);
+    status.textContent = "Fehler beim Speichern ❌";
   } else {
     status.textContent = "Text gespeichert ✔";
     textarea.value = "";
