@@ -1,22 +1,55 @@
-// SUPABASE
+// ---- Supabase Setup ----
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-import { createClient } from "@supabase/supabase-js";
+// Hier deine Supabase URL und ANON KEY einfügen
 const supabaseUrl = "https://knfbjpieihociajmylls.supabase.co";
-const supabaseKey = process.env.SUPABASE_KEY;
+const supabaseKey = "sb_publishable_ZMUVxenWZ3BGn0GCuARVBg_6gtSTkLw";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-//
+// ---- Elemente ----
+const textInput = document.getElementById("textInput");
+const saveBtn = document.getElementById("saveBtn");
+const textList = document.getElementById("textList");
 
-const input = document.getElementById("textInput");
-const output = document.getElementById("savedText");
+// ---- Texte laden ----
+async function loadTexts() {
+  const { data, error } = await supabase
+    .from("texts")
+    .select("*")
+    .order("id", { ascending: true });
 
-// gespeicherten Text laden
-const saved = localStorage.getItem("userText");
-if (saved) {
-  output.textContent = "Gespeichert: " + saved;
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  textList.innerHTML = "";
+  data.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item.content;
+    textList.appendChild(li);
+  });
 }
 
-function saveText() {
-  localStorage.setItem("userText", input.value);
-  output.textContent = "Gespeichert: " + input.value;
+// ---- Text speichern ----
+async function saveText() {
+  const content = textInput.value.trim();
+  if (!content) return alert("Bitte Text eingeben!");
+
+  const { data, error } = await supabase.from("texts").insert([{ content }]);
+
+  if (error) {
+    console.error(error);
+    alert("Fehler beim Speichern!");
+    return;
+  }
+
+  textInput.value = "";
+  loadTexts();
 }
+
+// ---- Event ----
+saveBtn.addEventListener("click", saveText);
+
+// ---- Initial load ----
+loadTexts();
