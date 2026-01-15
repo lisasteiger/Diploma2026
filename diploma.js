@@ -1,10 +1,44 @@
+// diploma.js
+import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
+// ------------------ Supabase Setup ------------------
+const supabaseUrl = "https://knfbjpieihociajmylls.supabase.co";
+const supabaseKey = "sb_publishable_ZMUVxenWZ3BGn0GCuARVBg_6gtSTkLw";
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// ------------------ DOM Elemente ------------------
+const button = document.getElementById("saveBtn");
+const textarea = document.getElementById("textInput");
+const status = document.getElementById("status");
+const container = document.querySelector(".scroll-container");
+
+// ------------------ Text speichern ------------------
+button.addEventListener("click", async () => {
+  const text = textarea.value.trim();
+
+  if (!text) {
+    status.textContent = "Bitte Text eingeben.";
+    return;
+  }
+
+  const { error } = await supabase.from("texts").insert([{ content: text }]);
+
+  if (error) {
+    console.error(error);
+    status.textContent = error.message;
+  } else {
+    status.textContent = "Danke, dein Text wurde gespeichert!";
+    textarea.value = "";
+  }
+});
+
+// ------------------ Schnelles Snap-Scrolling ------------------
 function fastScrollTo(element) {
-  const container = document.querySelector(".scroll-container");
   const targetY =
     element.offsetTop - container.offsetHeight / 2 + element.offsetHeight / 2;
   const startY = container.scrollTop;
   const distance = targetY - startY;
-  const duration = 50; // <--- hier kannst du die Geschwindigkeit einstellen (ms)
+  const duration = 50; // Geschwindigkeit: kleiner = schneller
 
   let startTime = null;
 
@@ -20,8 +54,10 @@ function fastScrollTo(element) {
   requestAnimationFrame(step);
 }
 
-const container = document.querySelector(".scroll-container");
 container.addEventListener("scroll", () => {
+  // NICHT snappen, wenn Textarea fokussiert
+  if (document.activeElement.tagName === "TEXTAREA") return;
+
   clearTimeout(container.scrollTimeout);
   container.scrollTimeout = setTimeout(() => {
     const panels = document.querySelectorAll(".panel");
@@ -40,6 +76,6 @@ container.addEventListener("scroll", () => {
       }
     });
 
-    fastScrollTo(closest); // schnelleres Scrollen
+    fastScrollTo(closest);
   }, 50);
 });
