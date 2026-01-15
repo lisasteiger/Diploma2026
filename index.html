@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scroll Story Panels</title>
+    <title>Half Page Story</title>
     <link rel="stylesheet" href="style/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,19 +13,12 @@
     />
   </head>
   <body>
-    <div class="container">
-      <section class="page page1">
-        <p>Hi</p>
-      </section>
-
-      <section class="page page2">
-        <p>Deine Story</p>
-        <textarea id="textInput"></textarea>
-        <button id="saveBtn">Speichern</button>
-        <p id="status"></p>
-
-        <script type="module" src="diploma.js"></script>
-      </section>
+    <div class="scroll-container">
+      <section class="panel">Text 1</section>
+      <section class="panel">Text 2</section>
+      <section class="panel">Text 3</section>
+      <section class="panel">Text 4</section>
     </div>
+    <script src="diploma.js"></script>
   </body>
 </html>
