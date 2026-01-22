@@ -12,6 +12,9 @@ body {
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
 }
+#pfeil {
+  bottom: 10px;
+}
 
 .page {
   height: 100vh;
@@ -33,6 +36,14 @@ body {
 
 .page2 {
   background: #ffffff;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.page3 {
+  background: #ffffff;
+  font-size: 2rem;
+  text-align: center;
 }
 t textarea {
   width: 100%;

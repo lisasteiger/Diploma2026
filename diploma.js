@@ -27,3 +27,27 @@ button.addEventListener("click", async () => {
     textarea.value = "";
   }
 });
+
+const translations = {
+  de: {
+    title: "Willkommen auf meiner Seite",
+    description: "Das ist ein deutscher Onepager.",
+  },
+  en: {
+    title: "Welcome to my website",
+    description: "This is an English onepager.",
+  },
+};
+
+function setLanguage(lang) {
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    el.textContent = translations[lang][key];
+  });
+
+  localStorage.setItem("language", lang);
+}
+
+// Sprache beim Laden setzen
+const savedLang = localStorage.getItem("language") || "de";
+setLanguage(savedLang);
