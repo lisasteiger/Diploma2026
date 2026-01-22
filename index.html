@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scroll Story Panels</title>
+    <title>Half Page Story</title>
     <link rel="stylesheet" href="style/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,68 +13,63 @@
     />
   </head>
   <body>
-    <div lass="sprachen">
-      <button onclick="setLanguage('de')">DE</button>
-      <button onclick="setLanguage('en')">EN</button>
-
-      <link />
-    </div>
-    <div class="container">
-      <section class="page page1">
-        <p>Danke nimmst du dir die Zeit. <br /></p>
-
-        <!-- <div id="pfeil"><p>↓</p></div>-->
-      </section>
-
-      <section class="page page2">
+    <div class="scroll-container">
+      <section class="panel">
         <p>
-          Vieles im Leben veränder und verschiebt sich,<br />
-          sobald es "Mama" / "Papa" heisst.
+          Danke nimmst du dir die Zeit für meine Fragen. <br />Mich
+          interessieren deine persönlichen Erfahrung innerhalb deiner
+          Mutterschaft / Vaterschaft.
         </p>
       </section>
-      <section class="page page2">
+      <section class="panel">
         <p>
-          Wie man doch so schön sagt, "Sie werden so schnell gross".<br />
-          Gerade wenn die Zeit so schnell vergeht, braucht es Momenten in denen
-          zurück geschaut wird.<br />
+          Da es ein sehr persönliches Thema ist, sind die Fragen auch
+          persönlicher. Wenn du eine Frage nicht beantworten möchtest, dann fühl
+          dich frei diese zu überspringen. Auf Grund des persönlichgen
+          Charakters, würde ich mich sehr freuen, wenn du dir kurz eine ruhige
+          Minute nehmen würdest. Es wird natürlich alles anonym sein und auch so
+          bleiben. Ich habe bewusst nicht viele Fragen, da ich gerne möchte,
+          dass du dir genügend Zeit nehmen kannst für diese Fragen.
         </p>
       </section>
 
-      <section class="page page2">
+      <section class="panel">
         <p>
-          Wenn du zurück schaust, auf deine Mutterschaft / Vaterschaft. Kurz
-          bevor sich vieles verändert und verschiebt.
+          Was würdest du jemanden mit auf den Weg geben der frisch Mama / Papa
+          wird?
         </p>
-      </section>
-
-      <section class="page page3">
-        <p>Was würdest du dir selbst aus deiner jetztigen Perspektive sagen?</p>
         <textarea id="textInput"></textarea>
-        <!--<button id="saveBtn">Speichern</button>
-        <p id="status"></p>-->
-      </section>
-
-      <section class="page page3">
-        <p>In welchem Jahr wurdest du zum ersten Mal Mama/Papa?</p>
-        <textarea id="textInput"></textarea>
-        <!--<button id="saveBtn">Speichern</button>
-        <p id="status"></p>-->
-      </section>
-
-      <section class="page page3">
-        <p>Wie alt bist du zur Zeit?</p>
-        <textarea id="textInput"></textarea>
-        <!--<button id="saveBtn">Speichern</button>
-        <p id="status"></p>-->
-      </section>
-
-      <section class="page page3">
-        <p>absenden</p>
-
         <button id="saveBtn">Speichern</button>
+        <p id="status"></p>
       </section>
 
-      <script type="module" src="diploma.js"></script>
+      <section class="panel">
+        <p>
+          Nenne drei Beschreibungen welche deiner Meinung nach MS / VS am Besten
+          trifft?
+        </p>
+        <textarea id="textInput"></textarea>
+        <button id="saveBtn">Speichern</button>
+        <p id="status"></p>
+      </section>
+
+      <section class="panel">
+        <p>Was waren dein Ängste? und wie trafen sie dann ein?</p>
+        <textarea id="textInput"></textarea>
+        <button id="saveBtn">Speichern</button>
+        <p id="status"></p>
+      </section>
+
+      <section class="panel">
+        <p>
+          Stell dir vor, du stehst vor deinem jungen Papa / Mama-ich, was
+          würdest du ihm/ihr sagen?
+        </p>
+        <textarea id="textInput"></textarea>
+        <button id="saveBtn">Speichern</button>
+        <p id="status"></p>
+      </section>
     </div>
+    <script type="module" src="diploma.js"></script>
   </body>
 </html>
