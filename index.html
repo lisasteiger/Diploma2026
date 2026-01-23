@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scroll Story Panels</title>
+    <title>Half Page Story</title>
     <link rel="stylesheet" href="style/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,68 +13,44 @@
     />
   </head>
   <body>
-    <div lass="sprachen">
-      <button onclick="setLanguage('de')">DE</button>
-      <button onclick="setLanguage('en')">EN</button>
-
-      <link />
-    </div>
-    <div class="container">
-      <section class="page page1">
-        <p>Danke nimmst du dir die Zeit. <br /></p>
-
-        <!-- <div id="pfeil"><p>↓</p></div>-->
+    <div class="scroll-container">
+      <section class="panel">
+        <p>Danke, dass du dir Zeit nimmst!</p>
       </section>
 
-      <section class="page page2">
-        <p>
-          Vieles im Leben veränder und verschiebt sich,<br />
-          sobald es "Mama" / "Papa" heisst.
-        </p>
+      <section class="panel">
+        <p>Letzten Sommer durfte ich zum ersten Mal Mama werden.</p>
       </section>
-      <section class="page page2">
+
+      <section class="panel">
         <p>
-          Wie man doch so schön sagt, "Sie werden so schnell gross".<br />
-          Gerade wenn die Zeit so schnell vergeht, braucht es Momenten in denen
-          zurück geschaut wird.<br />
+          In Gesprächen mit anderen Müttern und Vätern wurde mir schnell klar:
+          Kein Weg ist wie der andere. Und doch starten wir alle an einem
+          ähnlichen Punkt – ohne wirklich zu wissen, was uns erwartet.
         </p>
       </section>
 
-      <section class="page page2">
+      <section class="panel">
         <p>
-          Wenn du zurück schaust, auf deine Mutterschaft / Vaterschaft. Kurz
-          bevor sich vieles verändert und verschiebt.
+          Erst im Rückblick erkennen wir, welche Erfahrungen uns geprägt haben.
         </p>
       </section>
 
-      <section class="page page3">
-        <p>Was würdest du dir selbst aus deiner jetztigen Perspektive sagen?</p>
-        <textarea id="textInput"></textarea>
-        <!--<button id="saveBtn">Speichern</button>
-        <p id="status"></p>-->
+      <section class="panel">
+        <p>Genau das führt mich zu meiner Frage an dich.</p>
       </section>
 
-      <section class="page page3">
-        <p>In welchem Jahr wurdest du zum ersten Mal Mama/Papa?</p>
+      <section class="panel">
+        <p>
+          Stell dir vor, du könntest zu deinem werdenden Mutter-/Vater-Ich
+          zurückkehren – mit all deinen Vorstellungen von der kommenden
+          Elternschaft. Was würdest du ihm oder ihr heute sagen?
+        </p>
         <textarea id="textInput"></textarea>
-        <!--<button id="saveBtn">Speichern</button>
-        <p id="status"></p>-->
-      </section>
-
-      <section class="page page3">
-        <p>Wie alt bist du zur Zeit?</p>
-        <textarea id="textInput"></textarea>
-        <!--<button id="saveBtn">Speichern</button>
-        <p id="status"></p>-->
-      </section>
-
-      <section class="page page3">
-        <p>absenden</p>
-
         <button id="saveBtn">Speichern</button>
+        <p id="status"></p>
       </section>
-
-      <script type="module" src="diploma.js"></script>
     </div>
+    <script type="module" src="diploma.js"></script>
   </body>
 </html>
