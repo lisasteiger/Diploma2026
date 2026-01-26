@@ -39,12 +39,38 @@ body {
   font-size: 1.5rem;
 }
 
+.panel2 {
+  text-align: center;
+  width: 80%;
+  font-size: 1.5rem;
+}
+
+.panel2 {
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  scroll-snap-align: center;
+  scroll-behavior: smooth;
+}
+
 textarea {
+  font-family: serif;
+  font-family: Arial, sans-serif;
   width: 80%;
   height: 100px;
   font-size: 2rem;
   padding: 0.5rem;
+
+  outline: none;
+  box-shadow: none;
+  border: none;
+  background-color: rgb(228, 228, 228);
+  align-items: center;
 }
+
 button {
   margin-top: 0.5rem;
   padding: 0.5rem 1rem;
