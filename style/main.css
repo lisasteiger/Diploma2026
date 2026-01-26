@@ -40,12 +40,16 @@ body {
 }
 
 .panel2 {
+<<<<<<< HEAD
   text-align: center;
   width: 80%;
   font-size: 1.5rem;
 }
 
 .panel2 {
+=======
+  background-color: rgb(228, 228, 228);
+>>>>>>> c047dd66d58274a7fe314e7f6e907e9a9a46da6a
   height: 100vh;
 
   display: flex;
