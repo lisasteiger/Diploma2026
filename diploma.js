@@ -8,27 +8,38 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 // ------------------ DOM Elemente ------------------
 const button = document.getElementById("saveBtn");
-const textarea = document.getElementById("textInput");
 const status = document.getElementById("status");
+
+const text1 = document.getElementById("text1");
+const text2 = document.getElementById("text2");
+const text3 = document.getElementById("text3");
+
 const container = document.querySelector(".scroll-container");
 
-// ------------------ Text speichern ------------------
+// ------------------ Texte speichern (ALLE DREI) ------------------
 button.addEventListener("click", async () => {
-  const text = textarea.value.trim();
+  const data = {
+    text_1: text1.value.trim(),
+    text_2: text2.value.trim(),
+    text_3: text3.value.trim(),
+  };
 
-  if (!text) {
-    status.textContent = "Bitte Text eingeben.";
+  // Mindestens ein Feld ausfüllen
+  if (!data.text_1 && !data.text_2 && !data.text_3) {
+    status.textContent = "Bitte mindestens ein Feld ausfüllen.";
     return;
   }
 
-  const { error } = await supabase.from("texts").insert([{ content: text }]);
+  const { error } = await supabase.from("responses").insert([data]);
 
   if (error) {
     console.error(error);
-    status.textContent = error.message;
+    status.textContent = "Fehler beim Speichern.";
   } else {
-    status.textContent = "Danke, dein Text wurde gespeichert!";
-    textarea.value = "";
+    status.textContent = "Danke, dein Beitrag wurde gespeichert.";
+    text1.value = "";
+    text2.value = "";
+    text3.value = "";
   }
 });
 
@@ -38,7 +49,7 @@ function fastScrollTo(element) {
     element.offsetTop - container.offsetHeight / 2 + element.offsetHeight / 2;
   const startY = container.scrollTop;
   const distance = targetY - startY;
-  const duration = 50; // Geschwindigkeit: kleiner = schneller
+  const duration = 50;
 
   let startTime = null;
 
@@ -55,8 +66,14 @@ function fastScrollTo(element) {
 }
 
 container.addEventListener("scroll", () => {
-  // NICHT snappen, wenn Textarea fokussiert
-  if (document.activeElement.tagName === "TEXTAREA") return;
+  // ❗ Kein Snapping wenn ein Textfeld aktiv ist
+  if (
+    document.activeElement === text1 ||
+    document.activeElement === text2 ||
+    document.activeElement === text3
+  ) {
+    return;
+  }
 
   clearTimeout(container.scrollTimeout);
   container.scrollTimeout = setTimeout(() => {
@@ -70,6 +87,7 @@ container.addEventListener("scroll", () => {
       const containerCenter =
         container.getBoundingClientRect().top + container.offsetHeight / 2;
       const dist = Math.abs(panelCenter - containerCenter);
+
       if (dist < closestDist) {
         closestDist = dist;
         closest = panel;
