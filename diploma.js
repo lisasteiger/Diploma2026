@@ -30,12 +30,16 @@ button.addEventListener("click", async () => {
     return;
   }
 
-  const { error } = await supabase.from("responses").insert([data]);
+  const { data: result, error } = await supabase
+    .from("responses")
+    .insert([data])
+    .select();
 
   if (error) {
-    console.error(error);
-    status.textContent = "Fehler beim Speichern.";
+    console.error("SUPABASE ERROR:", error);
+    status.textContent = error.message;
   } else {
+    console.log("GESPEICHERT:", result);
     status.textContent = "Danke, dein Beitrag wurde gespeichert.";
     text1.value = "";
     text2.value = "";
