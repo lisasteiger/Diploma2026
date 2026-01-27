@@ -64,7 +64,7 @@ body {
   font-style: italic;
 }
 
-.panel form-panel {
+.panel.form-panel {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -75,7 +75,7 @@ body {
   scroll-behavior: smooth;
 }
 
-.panel form-panel p {
+.panel.form-panel p {
   text-align: center;
   width: 80%;
   font-size: 1.5rem;
