@@ -80,7 +80,8 @@ container.addEventListener("scroll", () => {
 
   clearTimeout(container.scrollTimeout);
   container.scrollTimeout = setTimeout(() => {
-    const panels = document.querySelectorAll(".panel");
+    const panels = document.querySelectorAll(".panel, .panel1");
+
     let closest = panels[0];
     let closestDist = Infinity;
 
