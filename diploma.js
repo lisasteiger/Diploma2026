@@ -32,8 +32,7 @@ button.addEventListener("click", async () => {
 
   const { data: result, error } = await supabase
     .from("responses")
-    .insert([data])
-    .select();
+    .insert([data]);
 
   if (error) {
     console.error("SUPABASE ERROR:", error);
