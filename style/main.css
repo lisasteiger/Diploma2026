@@ -11,6 +11,10 @@ body {
   font-style: italic;
 }
 
+button {
+  color: aqua;
+}
+
 /* Scrollbereich */
 .scroll-container {
   height: 100vh;
