@@ -24,6 +24,10 @@ button {
   margin-top: 50px;
 }
 
+button:hover {
+  cursor: grab;
+}
+
 /* Scrollbereich */
 .scroll-container {
   height: 100vh;
