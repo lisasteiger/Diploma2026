@@ -39,7 +39,7 @@ button.addEventListener("click", async () => {
     status.textContent = error.message;
   } else {
     console.log("GESPEICHERT:", result);
-    status.textContent = "♥ hast du dir die Zeit genommen!";
+    status.textContent = "Danke, dein Beitrag wurde gespeichert.";
     text1.value = "";
     text2.value = "";
     text3.value = "";
